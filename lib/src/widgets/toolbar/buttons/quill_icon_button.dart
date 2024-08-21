@@ -26,6 +26,9 @@ class QuillToolbarIconButton extends StatelessWidget {
         padding: padding,
         onPressed: onPressed,
         icon: icon,
+        style: ButtonStyle(
+            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(0)))),
       );
     }
     return IconButton(
