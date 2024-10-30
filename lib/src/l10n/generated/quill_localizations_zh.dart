@@ -8,7 +8,7 @@ class FlutterQuillLocalizationsZh extends FlutterQuillLocalizations {
   String get pasteLink => '粘贴链接';
 
   @override
-  String get ok => '确定';
+  String get ok => '确认';
 
   @override
   String get selectColor => '选择颜色';
@@ -38,7 +38,7 @@ class FlutterQuillLocalizationsZh extends FlutterQuillLocalizations {
   String get saved => '已保存';
 
   @override
-  String get text => '文本';
+  String get text => '文字';
 
   @override
   String get resize => '调整大小';
@@ -50,16 +50,16 @@ class FlutterQuillLocalizationsZh extends FlutterQuillLocalizations {
   String get height => '高度';
 
   @override
-  String get size => '大小';
+  String get size => '文字大小';
 
   @override
-  String get small => '小';
+  String get small => '小字号';
 
   @override
-  String get large => '大';
+  String get large => '大字号';
 
   @override
-  String get huge => '巨大';
+  String get huge => '超大字号';
 
   @override
   String get clear => '清除';
@@ -71,10 +71,10 @@ class FlutterQuillLocalizationsZh extends FlutterQuillLocalizations {
   String get search => '搜索';
 
   @override
-  String get camera => '相机';
+  String get camera => '拍照';
 
   @override
-  String get video => '视频';
+  String get video => '录像';
 
   @override
   String get undo => '撤销';
@@ -83,13 +83,13 @@ class FlutterQuillLocalizationsZh extends FlutterQuillLocalizations {
   String get redo => '重做';
 
   @override
-  String get fontFamily => '字体族';
+  String get fontFamily => '字体';
 
   @override
   String get fontSize => '字号';
 
   @override
-  String get bold => '加粗';
+  String get bold => '粗体';
 
   @override
   String get subscript => '下标';
@@ -107,7 +107,7 @@ class FlutterQuillLocalizationsZh extends FlutterQuillLocalizations {
   String get strikeThrough => '删除线';
 
   @override
-  String get inlineCode => '行内代码';
+  String get inlineCode => '内联代码';
 
   @override
   String get fontColor => '字体颜色';
@@ -122,10 +122,13 @@ class FlutterQuillLocalizationsZh extends FlutterQuillLocalizations {
   String get alignLeft => '左对齐';
 
   @override
-  String get alignCenter => '居中';
+  String get alignCenter => '居中对齐';
 
   @override
   String get alignRight => '右对齐';
+
+  @override
+  String get alignJustify => 'Align justify';
 
   @override
   String get justifyWinWidth => '两端对齐';
@@ -137,40 +140,40 @@ class FlutterQuillLocalizationsZh extends FlutterQuillLocalizations {
   String get headerStyle => '标题样式';
 
   @override
-  String get normal => 'Normal';
+  String get normal => '正文';
 
   @override
-  String get heading1 => 'Heading 1';
+  String get heading1 => '一级标题';
 
   @override
-  String get heading2 => 'Heading 2';
+  String get heading2 => '二级标题';
 
   @override
-  String get heading3 => 'Heading 3';
+  String get heading3 => '三级标题';
 
   @override
-  String get heading4 => 'Heading 4';
+  String get heading4 => '四级标题';
 
   @override
-  String get heading5 => 'Heading 5';
+  String get heading5 => '五级标题';
 
   @override
-  String get heading6 => 'Heading 6';
+  String get heading6 => '六级标题';
 
   @override
-  String get numberedList => '编号列表';
+  String get numberedList => '有序列表';
 
   @override
-  String get bulletList => '项目符号列表';
+  String get bulletList => '无序列表';
 
   @override
-  String get checkedList => '选中列表';
+  String get checkedList => '任务列表';
 
   @override
   String get codeBlock => '代码块';
 
   @override
-  String get quote => '引用';
+  String get quote => '引言';
 
   @override
   String get increaseIndent => '增加缩进';
@@ -179,7 +182,7 @@ class FlutterQuillLocalizationsZh extends FlutterQuillLocalizations {
   String get decreaseIndent => '减少缩进';
 
   @override
-  String get insertURL => '插入网址';
+  String get insertURL => '插入链接';
 
   @override
   String get visitLink => '访问链接';
@@ -200,37 +203,45 @@ class FlutterQuillLocalizationsZh extends FlutterQuillLocalizations {
   String get hex => '十六进制';
 
   @override
-  String get material => '素材';
+  String get material => 'Material 设计';
 
   @override
   String get color => '颜色';
 
   @override
-  String get findText => '查找文本';
+  String get lineheight => '行高';
 
   @override
-  String get moveToPreviousOccurrence => '移到前一个匹配项';
+  String get findText => '搜索文本';
 
   @override
-  String get moveToNextOccurrence => '移到下一个匹配项';
+  String get moveToPreviousOccurrence => '上一个匹配项';
 
   @override
-  String get savedUsingTheNetwork => '使用网络保存';
+  String get moveToNextOccurrence => '下一个匹配项';
+
+  @override
+  String get savedUsingTheNetwork => '通过网络保存';
 
   @override
   String get savedUsingLocalStorage => '使用本地存储保存';
 
   @override
-  String get errorWhileSavingImage => '保存图像时出错';
+  String theImageHasBeenSavedAt(String imagePath) {
+    return 'The image has been saved at: $imagePath';
+  }
 
   @override
-  String get pleaseEnterTextForYourLink => "请输入链接文本（例如，'了解更多'）";
+  String get errorWhileSavingImage => '保存图像时发生错误';
 
   @override
-  String get pleaseEnterTheLinkURL => "请输入链接网址（例如，'https://example.com'）";
+  String get pleaseEnterTextForYourLink => "如'了解更多'";
 
   @override
-  String get pleaseEnterAValidImageURL => '请输入有效的图像网址';
+  String get pleaseEnterTheLinkURL => "如'https://example.com'";
+
+  @override
+  String get pleaseEnterAValidImageURL => '请输入有效的图像URL';
 
   @override
   String get pleaseEnterAValidVideoURL => '请输入有效的视频URL';
@@ -245,25 +256,46 @@ class FlutterQuillLocalizationsZh extends FlutterQuillLocalizations {
   String get caseSensitivityAndWholeWordSearch => '区分大小写和整词搜索';
 
   @override
+  String get caseSensitive => 'Case sensitive';
+
+  @override
+  String get wholeWord => 'Whole word';
+
+  @override
   String get insertImage => '插入图像';
 
   @override
-  String get pickAPhotoFromYourGallery => 'Pick a photo from your gallery';
+  String get pickAPhotoFromYourGallery => '从相册选取图片';
 
   @override
-  String get takeAPhotoUsingYourCamera => 'Take a photo using your camera';
+  String get takeAPhotoUsingYourCamera => '使用相机拍照';
 
   @override
-  String get pasteAPhotoUsingALink => 'Paste a photo using a link';
+  String get pasteAPhotoUsingALink => '从链接获取图片';
 
   @override
-  String get pickAVideoFromYourGallery => 'Pick a video from your gallery';
+  String get pickAVideoFromYourGallery => '从相册选取视频';
 
   @override
-  String get recordAVideoUsingYourCamera => 'Record a video using your camera';
+  String get recordAVideoUsingYourCamera => '使用相机录制';
 
   @override
-  String get pasteAVideoUsingALink => 'Paste a video using a link';
+  String get pasteAVideoUsingALink => '从链接获取视频';
+
+  @override
+  String get close => 'Close';
+
+  @override
+  String get searchSettings => 'Search settings';
+
+  @override
+  String get cut => 'Cut';
+
+  @override
+  String get paste => 'Paste';
+
+  @override
+  String get insertTable => 'Insert table';
 }
 
 /// The translations for Chinese, as used in China (`zh_CN`).
@@ -274,13 +306,13 @@ class FlutterQuillLocalizationsZhCn extends FlutterQuillLocalizationsZh {
   String get pasteLink => '粘贴链接';
 
   @override
-  String get ok => '好';
+  String get ok => '确认';
 
   @override
   String get selectColor => '选择颜色';
 
   @override
-  String get gallery => '相簿';
+  String get gallery => '相册';
 
   @override
   String get link => '链接';
@@ -298,7 +330,7 @@ class FlutterQuillLocalizationsZhCn extends FlutterQuillLocalizationsZh {
   String get save => '保存';
 
   @override
-  String get zoom => '放大';
+  String get zoom => '缩放';
 
   @override
   String get saved => '已保存';
@@ -403,6 +435,27 @@ class FlutterQuillLocalizationsZhCn extends FlutterQuillLocalizationsZh {
   String get headerStyle => '标题样式';
 
   @override
+  String get normal => '正文';
+
+  @override
+  String get heading1 => '一级标题';
+
+  @override
+  String get heading2 => '二级标题';
+
+  @override
+  String get heading3 => '三级标题';
+
+  @override
+  String get heading4 => '四级标题';
+
+  @override
+  String get heading5 => '五级标题';
+
+  @override
+  String get heading6 => '六级标题';
+
+  @override
   String get numberedList => '有序列表';
 
   @override
@@ -445,10 +498,13 @@ class FlutterQuillLocalizationsZhCn extends FlutterQuillLocalizationsZh {
   String get hex => '十六进制';
 
   @override
-  String get material => '材料';
+  String get material => 'Material 设计';
 
   @override
   String get color => '颜色';
+
+  @override
+  String get lineheight => '行高';
 
   @override
   String get findText => '搜索文本';
@@ -469,10 +525,10 @@ class FlutterQuillLocalizationsZhCn extends FlutterQuillLocalizationsZh {
   String get errorWhileSavingImage => '保存图像时发生错误';
 
   @override
-  String get pleaseEnterTextForYourLink => "例如，'了解更多'";
+  String get pleaseEnterTextForYourLink => "如'了解更多'";
 
   @override
-  String get pleaseEnterTheLinkURL => "例如，'https://example.com'";
+  String get pleaseEnterTheLinkURL => "如'https://example.com'";
 
   @override
   String get pleaseEnterAValidImageURL => '请输入有效的图像URL';
@@ -491,6 +547,24 @@ class FlutterQuillLocalizationsZhCn extends FlutterQuillLocalizationsZh {
 
   @override
   String get insertImage => '插入图像';
+
+  @override
+  String get pickAPhotoFromYourGallery => '从相册选取图片';
+
+  @override
+  String get takeAPhotoUsingYourCamera => '使用相机拍照';
+
+  @override
+  String get pasteAPhotoUsingALink => '从链接获取图片';
+
+  @override
+  String get pickAVideoFromYourGallery => '从相册选取视频';
+
+  @override
+  String get recordAVideoUsingYourCamera => '使用相机录制';
+
+  @override
+  String get pasteAVideoUsingALink => '从链接获取视频';
 }
 
 /// The translations for Chinese, as used in Hong Kong (`zh_HK`).
@@ -676,6 +750,9 @@ class FlutterQuillLocalizationsZhHk extends FlutterQuillLocalizationsZh {
 
   @override
   String get color => '顏色';
+
+  @override
+  String get lineheight => '行高';
 
   @override
   String get findText => '搜尋文本';

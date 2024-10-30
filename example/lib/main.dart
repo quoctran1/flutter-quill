@@ -8,19 +8,20 @@ import 'package:flutter_localizations/flutter_localizations.dart'
         GlobalWidgetsLocalizations;
 import 'package:flutter_quill/flutter_quill.dart' show Document;
 import 'package:flutter_quill/translations.dart' show FlutterQuillLocalizations;
+import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart'
     show HydratedBloc, HydratedStorage;
 import 'package:path_provider/path_provider.dart'
     show getApplicationDocumentsDirectory;
 
-import 'presentation/home/widgets/home_screen.dart';
-import 'presentation/quill/quill_screen.dart';
-import 'presentation/quill/samples/quill_default_sample.dart';
-import 'presentation/quill/samples/quill_images_sample.dart';
-import 'presentation/quill/samples/quill_text_sample.dart';
-import 'presentation/quill/samples/quill_videos_sample.dart';
-import 'presentation/settings/cubit/settings_cubit.dart';
-import 'presentation/settings/widgets/settings_screen.dart';
+import 'screens/home/widgets/home_screen.dart';
+import 'screens/quill/quill_screen.dart';
+import 'screens/quill/samples/quill_default_sample.dart';
+import 'screens/quill/samples/quill_images_sample.dart';
+import 'screens/quill/samples/quill_text_sample.dart';
+import 'screens/quill/samples/quill_videos_sample.dart';
+import 'screens/settings/cubit/settings_cubit.dart';
+import 'screens/settings/widgets/settings_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,6 +30,7 @@ void main() async {
         ? HydratedStorage.webStorageDirectory
         : await getApplicationDocumentsDirectory(),
   );
+  FlutterQuillExtensions.useSuperClipboardPlugin();
   runApp(const MyApp());
 }
 
@@ -69,6 +71,9 @@ class MyApp extends StatelessWidget {
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
+              // Uncomment this line to use provide flutter quill localizations
+              // in your widgets app, otherwise the quill widgets will provide it
+              // internally:
               // FlutterQuillLocalizations.delegate,
             ],
             supportedLocales: FlutterQuillLocalizations.supportedLocales,

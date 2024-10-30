@@ -1,214 +1,71 @@
-// ignore_for_file: unused_import
-
 library flutter_quill_extensions;
 
-import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:flutter_quill/flutter_quill.dart';
+// ignore: implementation_imports
+import 'package:flutter_quill/src/editor/spellchecker/spellchecker_service_provider.dart';
+// ignore: implementation_imports
+import 'package:flutter_quill/src/editor_toolbar_controller_shared/clipboard/clipboard_service_provider.dart';
 import 'package:meta/meta.dart' show immutable;
 
-import 'embeds/image/editor/image_embed.dart';
-import 'embeds/image/editor/image_web_embed.dart';
-import 'embeds/image/toolbar/image_button.dart';
-import 'embeds/others/camera_button/camera_button.dart';
-import 'embeds/video/editor/video_embed.dart';
-import 'embeds/video/editor/video_web_embed.dart';
-import 'embeds/video/toolbar/video_button.dart';
-import 'models/config/editor/image/image.dart';
-import 'models/config/editor/image/image_web.dart';
-import 'models/config/editor/video/video.dart';
-import 'models/config/editor/video/video_web.dart';
-import 'models/config/editor/webview.dart';
-import 'models/config/toolbar/buttons/camera.dart';
-import 'models/config/toolbar/buttons/image.dart';
-import 'models/config/toolbar/buttons/media_button.dart';
-import 'models/config/toolbar/buttons/video.dart';
+import 'src/editor/spell_checker/simple_spell_checker_service.dart';
+import 'src/editor_toolbar_controller_shared/clipboard/super_clipboard_service.dart';
 
-export 'embeds/embed_types.dart';
-export 'embeds/formula/toolbar/formula_button.dart';
-export 'embeds/image/editor/image_embed.dart';
-export 'embeds/image/editor/image_embed_types.dart';
-export 'embeds/image/editor/image_web_embed.dart';
-export 'embeds/image/toolbar/image_button.dart';
-export 'embeds/others/camera_button/camera_button.dart';
-export 'embeds/others/media_button/media_button.dart';
-export 'embeds/unknown/editor/unknown_embed.dart';
-export 'embeds/video/editor/video_embed.dart';
-export 'embeds/video/editor/video_web_embed.dart';
-export 'embeds/video/toolbar/video_button.dart';
-export 'embeds/video/video.dart';
-export 'extensions/controller_ext.dart';
-export 'models/config/editor/image/image.dart';
-export 'models/config/editor/image/image_web.dart';
-export 'models/config/editor/video/video.dart';
-export 'models/config/editor/video/video_web.dart';
-export 'models/config/editor/webview.dart';
-export 'models/config/shared_configurations.dart';
-export 'models/config/toolbar/buttons/camera.dart';
-export 'models/config/toolbar/buttons/formula.dart';
-export 'models/config/toolbar/buttons/image.dart';
-export 'models/config/toolbar/buttons/media_button.dart';
-export 'models/config/toolbar/buttons/video.dart';
-export 'utils/utils.dart';
+export 'src/common/extensions/controller_ext.dart';
+export 'src/common/utils/utils.dart';
+export 'src/editor/image/image_embed.dart';
+export 'src/editor/image/image_embed_types.dart';
+export 'src/editor/image/image_web_embed.dart';
+export 'src/editor/image/models/image_configurations.dart';
+export 'src/editor/image/models/image_web_configurations.dart';
+export 'src/editor/spell_checker/simple_spell_checker_service.dart';
+export 'src/editor/table/table_cell_embed.dart';
+export 'src/editor/table/table_embed.dart';
+export 'src/editor/table/table_models.dart';
+export 'src/editor/video/models/video_configurations.dart';
+export 'src/editor/video/models/video_web_configurations.dart';
+export 'src/editor/video/models/youtube_video_support_mode.dart';
+export 'src/editor/video/video_embed.dart';
+export 'src/editor/video/video_web_embed.dart';
+export 'src/editor_toolbar_shared/shared_configurations.dart';
+export 'src/flutter_quill_embeds.dart';
+export 'src/toolbar/camera/camera_button.dart';
+export 'src/toolbar/camera/models/camera_configurations.dart';
+export 'src/toolbar/formula/formula_button.dart';
+export 'src/toolbar/formula/models/formula_configurations.dart';
+export 'src/toolbar/image/image_button.dart';
+export 'src/toolbar/image/models/image_configurations.dart';
+export 'src/toolbar/table/models/table_configurations.dart';
+export 'src/toolbar/table/table_button.dart';
+export 'src/toolbar/video/models/video.dart';
+export 'src/toolbar/video/models/video_configurations.dart';
+export 'src/toolbar/video/video_button.dart';
 
 @immutable
-class FlutterQuillEmbeds {
-  const FlutterQuillEmbeds._();
+class FlutterQuillExtensions {
+  const FlutterQuillExtensions._();
 
-  /// Returns a list of embed builders for QuillEditor.
+  /// override the default implementation of [SpellCheckerServiceProvider]
+  /// to allow a `flutter quill` support a better check spelling
   ///
-  /// This method provides a collection of embed builders to enhance the
-  /// functionality
-  /// of a QuillEditor. It offers customization options for
-  /// handling various types of
-  /// embedded content, such as images, videos, and formulas.
+  /// # !WARNING
+  /// To avoid memory leaks, ensure to use [dispose()] method to
+  /// close stream controllers that used by this custom implementation
+  /// when them no longer needed
   ///
-  /// **Note:** This method is not intended for web usage.
-  /// For web-specific embeds,
-  /// use [editorWebBuilders].
+  /// Example:
   ///
-  ///
-  /// The method returns a list of [EmbedBuilder] objects that can be used with
-  ///  QuillEditor
-  /// to enable embedded content features like images, videos, and formulas.
-  ///
-  ///
-  /// final quillEditor = QuillEditor(
-  ///   // Other editor configurations
-  ///   embedBuilders: embedBuilders,
-  /// );
-  /// ```
-  ///
-  /// if you don't want image embed in your quill editor then please pass null
-  /// to [imageEmbedConfigurations]. same apply to [videoEmbedConfigurations]
-  static List<EmbedBuilder> editorBuilders({
-    QuillEditorImageEmbedConfigurations? imageEmbedConfigurations =
-        const QuillEditorImageEmbedConfigurations(),
-    QuillEditorVideoEmbedConfigurations? videoEmbedConfigurations =
-        const QuillEditorVideoEmbedConfigurations(),
-  }) {
-    if (kIsWeb) {
-      throw UnsupportedError(
-        'The editorBuilders() is not for web, please use editorBuilders() '
-        'instead',
-      );
-    }
-    return [
-      if (imageEmbedConfigurations != null)
-        QuillEditorImageEmbedBuilder(
-          configurations: imageEmbedConfigurations,
-        ),
-      if (videoEmbedConfigurations != null)
-        QuillEditorVideoEmbedBuilder(
-          configurations: videoEmbedConfigurations,
-        ),
-    ];
+  ///```dart
+  ///// set partial true if you only need to close the controllers
+  ///SpellCheckerServiceProvider.dispose(onlyPartial: false);
+  ///```
+  static void useSpellCheckerService(String language) {
+    SpellCheckerServiceProvider.setNewCheckerService(
+        SimpleSpellCheckerService(language: language));
   }
 
-  /// Returns a list of embed builders specifically designed for web support.
-  ///
-  /// [QuillEditorWebImageEmbedBuilder] is the embed builder for handling
-  ///  images on the web.
-  ///
-  /// [QuillEditorWebVideoEmbedBuilder] is the embed builder for handling
-  ///  videos iframe on the web.
-  ///
-  static List<EmbedBuilder> editorWebBuilders({
-    QuillEditorImageEmbedConfigurations? imageEmbedConfigurations =
-        const QuillEditorImageEmbedConfigurations(),
-    QuillEditorWebVideoEmbedConfigurations? videoEmbedConfigurations =
-        const QuillEditorWebVideoEmbedConfigurations(),
-  }) {
-    if (!kIsWeb) {
-      throw UnsupportedError(
-        'The editorsWebBuilders() is only for web, please use editorBuilders() '
-        'instead for other platforms',
-      );
-    }
-    return [
-      if (imageEmbedConfigurations != null)
-        QuillEditorImageEmbedBuilder(
-          configurations: imageEmbedConfigurations,
-        ),
-      if (videoEmbedConfigurations != null)
-        QuillEditorWebVideoEmbedBuilder(
-          configurations: videoEmbedConfigurations,
-        ),
-    ];
+  /// Override default implementation of [ClipboardServiceProvider.instance]
+  /// to allow `flutter_quill` package to use `super_clipboard` plugin
+  /// to support rich text features, gif and images.
+  static void useSuperClipboardPlugin() {
+    ClipboardServiceProvider.setInstance(SuperClipboardService());
   }
-
-  /// Returns a list of default embed builders for QuillEditor.
-  ///
-  /// It will use [editorWebBuilders] for web and [editorBuilders] for others
-  ///
-  /// It's not customizable with minimal configurations
-  static List<EmbedBuilder> defaultEditorBuilders() {
-    return kIsWeb ? editorWebBuilders() : editorBuilders();
-  }
-
-  /// Returns a list of embed button builders to customize the toolbar buttons.
-  ///
-  /// If you don't want to show one of the buttons for soem reason,
-  /// pass null to the options of it
-  ///
-  /// Example of customizing media pick settings for the image button:
-  /// ```dart
-  /// mediaPickSettingSelector: (context) async {
-  ///   final mediaPickSetting = await showModalBottomSheet<MediaPickSetting>(
-  ///     showDragHandle: true,
-  ///     context: context,
-  ///     constraints: const BoxConstraints(maxWidth: 640),
-  ///     builder: (context) => const SelectImageSourceDialog(),
-  ///   );
-  ///   if (mediaPickSetting == null) {
-  ///     return null;
-  ///   }
-  ///   return mediaPickSetting;
-  /// }
-  /// ```
-  ///
-  ///
-  /// The returned list contains embed button builders for the Quill toolbar.
-  /// the [formulaButtonOptions] will be disabled by default on web
-  static List<EmbedButtonBuilder> toolbarButtons({
-    QuillToolbarImageButtonOptions? imageButtonOptions =
-        const QuillToolbarImageButtonOptions(),
-    QuillToolbarVideoButtonOptions? videoButtonOptions =
-        const QuillToolbarVideoButtonOptions(),
-    QuillToolbarCameraButtonOptions? cameraButtonOptions,
-    QuillToolbarMediaButtonOptions? mediaButtonOptions,
-  }) =>
-      [
-        if (imageButtonOptions != null)
-          (controller, toolbarIconSize, iconTheme, dialogTheme) =>
-              QuillToolbarImageButton(
-                controller: controller,
-                options: imageButtonOptions,
-              ),
-        if (videoButtonOptions != null)
-          (controller, toolbarIconSize, iconTheme, dialogTheme) =>
-              QuillToolbarVideoButton(
-                controller: controller,
-                options: videoButtonOptions,
-              ),
-        if (cameraButtonOptions != null)
-          (controller, toolbarIconSize, iconTheme, dialogTheme) =>
-              QuillToolbarCameraButton(
-                controller: controller,
-                options: cameraButtonOptions,
-              ),
-        // TODO: We will return the support for this later
-        // if (mediaButtonOptions != null)
-        //   (controller, toolbarIconSize, iconTheme, dialogTheme) =>
-        //       QuillToolbarMediaButton(
-        //         controller: mediaButtonOptions.controller ?? controller,
-        //         options: mediaButtonOptions,
-        //       ),
-        // Drop the support for formula button for now
-        // if (formulaButtonOptions != null)
-        //   (controller, toolbarIconSize, iconTheme, dialogTheme) =>
-        //       QuillToolbarFormulaButton(
-        //         controller: formulaButtonOptions.controller ?? controller,
-        //         options: formulaButtonOptions,
-        //       ),
-      ];
 }
